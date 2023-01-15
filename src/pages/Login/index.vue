@@ -1,0 +1,71 @@
+<template>
+  <div class="login-form">
+    <el-form :model="LoginForm" style="min-width: 300px">
+      <h1 class="title">超市管理系统</h1>
+      <el-form-item>
+        <el-input v-model="LoginForm.username" placeholder="用户名" />
+      </el-form-item>
+      <el-form-item>
+        <el-input
+          type="password"
+          v-model="LoginForm.password"
+          placeholder="密码" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit" :style="{ width: '100%' }">
+          登录
+        </el-button>
+      </el-form-item>
+    </el-form>
+    <router-link to="/register">立即注册</router-link>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { reactive } from "vue";
+import { getUserInfoAPI, loginAPI } from "@/api";
+import { setToken } from "@/unitls/token";
+import router from "@/router";
+import { RouterLink } from "vue-router";
+import useStore from "@/store";
+
+// 表单数据
+const LoginForm = reactive({
+  username: "",
+  password: "",
+});
+// 表单提交
+const onSubmit = async () => {
+  if (LoginForm.password && LoginForm.username) {
+    const res = await loginAPI(LoginForm);
+    console.log(res);
+    // 保存token
+    setToken(res.data.token);
+    // 保存用户信息到 pinia
+    const infoRes = await getUserInfoAPI();
+    const { userStore } = useStore();
+    userStore.setUserInfo(infoRes.data.data);
+    // 跳转首页
+    await router.push("/");
+  } else {
+    console.log("error submit");
+  }
+};
+</script>
+
+<style scoped lang="less">
+.login-form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 50px;
+
+  .title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+}
+</style>
