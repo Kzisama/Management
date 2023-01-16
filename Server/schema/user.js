@@ -1,5 +1,5 @@
 // 用户信息验证
-const joi = require('joi');
+const joi = require("joi");
 
 /**
  * string() 值必须是字符串
@@ -18,10 +18,22 @@ const usernameSchema = joi.string().required().pattern(usernameReg);
 const passwordReg = /^[a-zA-Z0-9_]{6,10}$/;
 const passwordSchema = joi.string().required().pattern(passwordReg);
 
+// 手机号验证规则
+const telReg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
+const telSchema = joi.string().required().pattern(telReg);
+
 // 登录和注册的表单验证规则对象
 exports.reg_login_schema = {
   body: {
     user_name: usernameSchema,
+    user_pwd: passwordSchema,
+    user_tel: telSchema,
+  },
+};
+
+// 密码验证规则
+exports.password_schema = {
+  body: {
     user_pwd: passwordSchema,
   },
 };

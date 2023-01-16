@@ -1,12 +1,13 @@
-import request from "../unitls/request";
+import request from "@/unitls/request";
 
 type User = {
   username: string;
   password: string;
+  telephone: string;
 };
 
 // 用户-----登录
-export const loginAPI = (userlogin: User) =>
+export const loginAPI = (userlogin: { username: string; password: string }) =>
   request({
     url: "/api/login",
     method: "POST",
@@ -24,6 +25,7 @@ export const registerAPI = (useReg: User) =>
     data: {
       user_name: useReg.username,
       user_pwd: useReg.password,
+      user_tel: useReg.telephone,
     },
   });
 
@@ -31,4 +33,14 @@ export const registerAPI = (useReg: User) =>
 export const getUserInfoAPI = () =>
   request({
     url: "/my/getinfo",
+  });
+
+// 密码-----比较密码
+export const comparePwdAPI = (pwd: string) =>
+  request({
+    url: "/my/compare",
+    method: "POST",
+    data: {
+      user_pwd: pwd,
+    },
   });

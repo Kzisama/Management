@@ -5,8 +5,18 @@ const allRoutes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Layout",
     component: () => import("@/pages/Layout/index.vue"),
-    redirect: '/goods',
+    redirect: '/person',
     children: [
+      {
+        path: 'person',
+        name: 'Person',
+        component: () => import('@/pages/Layout/Person/index.vue'),
+        meta: {
+          title: '首页',
+          icon: 'dashboard',
+          roles: [0, 1, 2],
+        }
+      },
       // 商品模块
       {
         path: "goods",
@@ -15,6 +25,7 @@ const allRoutes: Array<RouteRecordRaw> = [
         redirect: "/goods/goodspreview",
         meta: {
           title: "商品",
+          icon: 'shopping',
           roles: [0, 1, 2],
         },
         children: [
@@ -25,6 +36,7 @@ const allRoutes: Array<RouteRecordRaw> = [
               import("@/pages/Layout/Goods/GoodsPreview/index.vue"),
             meta: {
               title: "商品总览",
+              icon: 'component',
               roles: [0, 1, 2],
             },
           },
@@ -57,14 +69,15 @@ const allRoutes: Array<RouteRecordRaw> = [
         redirect: "/inventory/invperview",
         meta: {
           title: "库存",
+          icon:'component',
           roles: [1, 2],
         },
         children: [
           {
             path: "invpreview",
-            name: "InvPerview",
+            name: "InvPreview",
             component: () =>
-              import("@/pages/Layout/Inventory/InventoryPerview/index.vue"),
+              import("@/pages/Layout/Inventory/InventoryPreview/index.vue"),
             meta: {
               title: "库存总览",
               roles: [1, 2],
@@ -72,13 +85,14 @@ const allRoutes: Array<RouteRecordRaw> = [
           },
         ],
       },
-      // 个人资料模块
+      // 修改密码
       {
-        path: "setting",
-        name: "Setting",
-        component: () => import("@/pages/Layout/PersonalInfo/index.vue"),
+        path: "password",
+        name: "Password",
+        component: () => import("@/pages/Layout/Password/index.vue"),
         meta: {
-          title: "个人资料",
+          title: "修改密码",
+          icon: 'password',
           roles: [0, 1, 2],
         },
       },

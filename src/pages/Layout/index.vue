@@ -13,6 +13,16 @@
           :default-active="route.path"
           text-color="#fff"
           router>
+          <!-- 没有二级菜单的路由 -->
+          <el-menu-item
+            v-for="route in noChRoutes"
+            :key="route.path"
+            :index="`/${route.path}`">
+            <el-icon>
+              <svg-icon :name="route.meta?.icon"></svg-icon>
+            </el-icon>
+            {{ route.meta?.title }}
+          </el-menu-item>
           <!-- 有二级菜单的路由 -->
           <el-sub-menu
             :index="`/${route.path}`"
@@ -20,7 +30,7 @@
             :key="route.path">
             <template #title>
               <el-icon>
-                <Goods />
+                <svg-icon :name="route.meta?.icon"></svg-icon>
               </el-icon>
               <span>{{ route.meta?.title }}</span>
             </template>
@@ -32,16 +42,6 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <!-- 没有二级菜单的路由 -->
-          <el-menu-item
-            v-for="route in noChRoutes"
-            :key="route.path"
-            :index="`/${route.path}`">
-            <el-icon>
-              <User />
-            </el-icon>
-            {{ route.meta?.title }}
-          </el-menu-item>
         </el-menu>
       </aside>
       <main>
@@ -57,7 +57,6 @@ import { useRoute, RouteRecordRaw } from "vue-router";
 import { getUserInfoAPI } from "@/api";
 import allRouter from "@/router/allRoutes";
 import permissionRoutes from "@/router/permission";
-import { Goods, User } from "@element-plus/icons-vue";
 import Header from "@/components/Header/index.vue";
 
 onMounted(async () => {
@@ -77,7 +76,6 @@ const chRoutes = permissionRoutes(
 const noChRoutes = permissionRoutes(
   renderRoutes?.filter(item => !item.children) as RouteRecordRaw[],
 );
-console.log(chRoutes);
 </script>
 
 <style scoped lang="less">
@@ -96,7 +94,16 @@ header {
 
     .el-menu-vertical-demo {
       border: none !important;
+
+      /deep/ .el-menu-item-group__title {
+        padding: 0 !important;
+      }
     }
+  }
+
+  main {
+    flex: 1;
+    padding: 10px;
   }
 }
 </style>

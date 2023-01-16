@@ -39,6 +39,10 @@ const onSubmit = async () => {
   if (LoginForm.password && LoginForm.username) {
     const res = await loginAPI(LoginForm);
     console.log(res);
+    // 验证失败
+    if (res.data.status === 1) {
+      return ElMessage.error(res.data.message);
+    }
     // 保存token
     setToken(res.data.token);
     // 保存用户信息到 pinia

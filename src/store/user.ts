@@ -5,6 +5,7 @@ export type User = {
   user_name: string;
   user_nickname: null | string;
   user_type: number;
+  user_tel: string;
 };
 
 const useUserStore = defineStore("User", {
