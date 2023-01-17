@@ -44,3 +44,13 @@ export const comparePwdAPI = (pwd: string) =>
       user_pwd: pwd,
     },
   });
+
+// 密码-----修改密码
+export const setPwdAPI = (newPwd: string) => request({
+  url: '/my/setpwd',
+  method: 'PUT',
+  data: {
+    newPwd
+  }
+})
+

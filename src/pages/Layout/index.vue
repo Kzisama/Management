@@ -7,17 +7,17 @@
       <!-- 侧边导航栏 -->
       <aside class="menu">
         <el-menu
-          active-text-color="#ffd04b"
-          background-color="#545c64"
-          class="el-menu-vertical-demo"
-          :default-active="route.path"
-          text-color="#fff"
-          router>
+            active-text-color="#ffd04b"
+            background-color="#545c64"
+            class="el-menu-vertical-demo"
+            :default-active="route.path"
+            text-color="#fff"
+            router>
           <!-- 没有二级菜单的路由 -->
           <el-menu-item
-            v-for="route in noChRoutes"
-            :key="route.path"
-            :index="`/${route.path}`">
+              v-for="route in noChRoutes"
+              :key="route.path"
+              :index="`/${route.path}`">
             <el-icon>
               <svg-icon :name="route.meta?.icon"></svg-icon>
             </el-icon>
@@ -25,9 +25,9 @@
           </el-menu-item>
           <!-- 有二级菜单的路由 -->
           <el-sub-menu
-            :index="`/${route.path}`"
-            v-for="route in chRoutes"
-            :key="route.path">
+              :index="`/${route.path}`"
+              v-for="route in chRoutes"
+              :key="route.path">
             <template #title>
               <el-icon>
                 <svg-icon :name="route.meta?.icon"></svg-icon>
@@ -35,8 +35,8 @@
               <span>{{ route.meta?.title }}</span>
             </template>
             <el-menu-item-group
-              v-for="child in route.children"
-              :key="child.path">
+                v-for="child in route.children"
+                :key="child.path">
               <el-menu-item :index="`/${route.path}/${child.path}`">
                 {{ child.meta?.title }}
               </el-menu-item>
@@ -70,11 +70,11 @@ const route = useRoute();
 const renderRoutes = allRouter[0].children;
 // 带有二级菜单的路由
 const chRoutes = permissionRoutes(
-  renderRoutes?.filter(item => item.children) as RouteRecordRaw[],
+    renderRoutes?.filter(item => item.children) as RouteRecordRaw[],
 );
 // 没有二级菜单的路由
 const noChRoutes = permissionRoutes(
-  renderRoutes?.filter(item => !item.children) as RouteRecordRaw[],
+    renderRoutes?.filter(item => !item.children) as RouteRecordRaw[],
 );
 </script>
 
