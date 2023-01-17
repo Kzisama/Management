@@ -1,12 +1,13 @@
 <template>
   <div class="header-nav">
-    <div class="logo">Logo</div>
     <div class="user">
       <div class="welcome">
         欢迎 {{ user_nickname ? user_nickname : user_name }}
       </div>
       <div class="icon" @click="exit">
-        <el-icon><SwitchButton /></el-icon>
+        <el-icon color="red">
+          <SwitchButton />
+        </el-icon>
       </div>
     </div>
   </div>
@@ -20,8 +21,8 @@ import { User } from "@/store/user";
 import { delToken } from "@/unitls/token";
 
 const router = useRouter();
-const { userStore } = useStore();
-const { user_name, user_nickname } = userStore.userInfo as User;
+const {userStore} = useStore();
+const {user_name, user_nickname} = userStore.userInfo as User;
 // 退出登录
 const exit = () => {
   ElMessageBox.confirm("确定要退出系统吗？", "退出登录", {
@@ -47,14 +48,8 @@ const exit = () => {
   position: relative;
   width: 100%;
   height: 100%;
-  border-bottom: 1px solid #363b41;
-  background-color: #409eff;
-
-  .logo {
-    width: 200px;
-    height: 100%;
-    background-color: #545c64;
-  }
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  background-color: #fff;
 
   .user {
     position: absolute;

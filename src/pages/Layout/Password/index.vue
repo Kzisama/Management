@@ -1,65 +1,66 @@
 <template>
-  <div class="container">
-    <el-steps :active="active" :space="200" finish-status="success">
-      <el-step title="Step 1" />
-      <el-step title="Step 2" />
-      <el-step title="Step 3" />
-    </el-steps>
-    <el-form
-        ref="ruleFormRef"
-        :model="ruleForm"
-        status-icon
-        :rules="rules"
-        style="width: 350px"
-        label-position="left"
-        class="demo-ruleForm">
-      <el-form-item prop="oldPass" v-if="active === 0">
-        <el-input
-            v-model="ruleForm.oldPass"
-            type="password"
-            placeholder="请输入旧密码"
-            autocomplete="off" />
-      </el-form-item>
-      <el-form-item prop="pass" v-if="active === 1">
-        <el-input
-            v-model="ruleForm.pass"
-            type="password"
-            placeholder="新密码"
-            autocomplete="off" />
-      </el-form-item>
-      <el-form-item prop="checkPass" v-if="active === 1">
-        <el-input
-            v-model="ruleForm.checkPass"
-            type="password"
-            placeholder="再次输入密码"
-            autocomplete="off" />
-      </el-form-item>
-      <!-- 验证旧密码 -->
-      <el-form-item v-if="active === 0">
-        <el-button
-            type="primary"
-            @click="compareFn(ruleFormRef)"
-            style="width: 100%">
-          提交
-        </el-button>
-      </el-form-item>
-      <!-- 提交新密码 -->
-      <el-form-item v-if="active === 1">
-        <el-button
-            type="primary"
-            @click="submitForm(ruleFormRef)"
-            style="width: 100%">
-          Submit
-        </el-button>
-      </el-form-item>
-      <el-form-item v-if="active === 3">
-        <el-result
-            icon="success"
-            title="修改密码成功"
-            style="width:100%"
-        ></el-result>
-      </el-form-item>
-    </el-form>
+  <div class="out-contain">
+    <div class="container">
+      <el-steps :active="active" :space="200" finish-status="success" align-center>
+        <el-step title="输入旧密码" />
+        <el-step title="设置新密码" />
+        <el-step title="修改完成" />
+      </el-steps>
+      <el-form
+          ref="ruleFormRef"
+          :model="ruleForm"
+          status-icon
+          :rules="rules"
+          label-position="left"
+          class="demo-ruleForm">
+        <el-form-item prop="oldPass" v-if="active === 0">
+          <el-input
+              v-model="ruleForm.oldPass"
+              type="password"
+              placeholder="请输入旧密码"
+              autocomplete="off" />
+        </el-form-item>
+        <el-form-item prop="pass" v-if="active === 1">
+          <el-input
+              v-model="ruleForm.pass"
+              type="password"
+              placeholder="新密码"
+              autocomplete="off" />
+        </el-form-item>
+        <el-form-item prop="checkPass" v-if="active === 1">
+          <el-input
+              v-model="ruleForm.checkPass"
+              type="password"
+              placeholder="再次输入密码"
+              autocomplete="off" />
+        </el-form-item>
+        <!-- 验证旧密码 -->
+        <el-form-item v-if="active === 0">
+          <el-button
+              type="primary"
+              @click="compareFn(ruleFormRef)"
+              style="width: 100%">
+            提交
+          </el-button>
+        </el-form-item>
+        <!-- 提交新密码 -->
+        <el-form-item v-if="active === 1">
+          <el-button
+              type="primary"
+              @click="submitForm(ruleFormRef)"
+              style="width: 100%">
+            Submit
+          </el-button>
+        </el-form-item>
+        <el-form-item v-if="active === 3">
+          <el-result
+              icon="success"
+              title="修改密码成功"
+              style="width:100%"
+          ></el-result>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -158,15 +159,28 @@ const submitForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <style scoped lang="less">
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-25%, -50%);
-  width: 500px;
 
-  .el-steps {
-    margin-bottom: 50px;
+.out-contain {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+    width: 500px;
+
+    .el-steps {
+      margin-bottom: 50px;
+    }
+
+    .demo-ruleForm {
+      margin: 0 20%;
+      width: 60%;
+    }
   }
+
 }
 </style>
