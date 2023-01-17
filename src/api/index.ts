@@ -47,10 +47,19 @@ export const comparePwdAPI = (pwd: string) =>
 
 // 密码-----修改密码
 export const setPwdAPI = (newPwd: string) => request({
-  url: '/my/setpwd',
-  method: 'PUT',
+  url: "/my/setpwd",
+  method: "PUT",
   data: {
     newPwd
   }
-})
+});
+
+// 昵称-----修改昵称
+export const setNickNameAPI = (nickname: string) => request({
+  url: "/my/setnickname",
+  method: "PUT",
+  data: {
+    nickname
+  }
+});
 

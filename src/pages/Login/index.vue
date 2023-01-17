@@ -7,9 +7,9 @@
       </el-form-item>
       <el-form-item>
         <el-input
-          type="password"
-          v-model="LoginForm.password"
-          placeholder="密码" />
+            type="password"
+            v-model="LoginForm.password"
+            placeholder="密码" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :style="{ width: '100%' }">
@@ -23,6 +23,7 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import { ElMessage } from 'element-plus';
 import { getUserInfoAPI, loginAPI } from "@/api";
 import { setToken } from "@/unitls/token";
 import router from "@/router";
@@ -36,16 +37,16 @@ const LoginForm = reactive({
 });
 // 表单提交
 const onSubmit = async () => {
-  if (LoginForm.password && LoginForm.username) {
+  if ( LoginForm.password && LoginForm.username ) {
     const res = await loginAPI(LoginForm);
     console.log(res);
     // 验证失败
-    if (res.data.status === 1) {
+    if ( res.data.status === 1 ) {
       return ElMessage.error(res.data.message);
     }
     // 保存token
     setToken(res.data.token);
-    // 保存用户信息到 pinia
+    // 保存用户信息
     const infoRes = await getUserInfoAPI();
     const { userStore } = useStore();
     userStore.setUserInfo(infoRes.data.data);

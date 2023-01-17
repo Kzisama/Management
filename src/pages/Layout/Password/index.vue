@@ -66,12 +66,12 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { useRouter } from 'vue-router'
-import type { FormInstance } from "element-plus";
+import { useRouter } from 'vue-router';
+import { ElMessage, FormInstance } from 'element-plus';
 import { comparePwdAPI, setPwdAPI } from "@/api";
-import { delToken } from '@/unitls/token'
+import { delToken } from '@/unitls/token';
 
-const router = useRouter()
+const router = useRouter();
 
 // 步骤条
 const active = ref(0);
@@ -107,9 +107,9 @@ const validatePass2 = (rule: any, value: string, callback: any) => {
 };
 // 验证规则
 const rules = reactive({
-  pass: [{validator: validatePass, trigger: "blur"}],
-  checkPass: [{validator: validatePass2, trigger: "blur"}],
-  oldPass: [{required: true, trigger: "blur"}],
+  pass: [{ validator: validatePass, trigger: "blur" }],
+  checkPass: [{ validator: validatePass2, trigger: "blur" }],
+  oldPass: [{ required: true, trigger: "blur" }],
 });
 // 判断旧密码是否正确
 const compareFn = (formEl: FormInstance | undefined) => {
@@ -138,16 +138,16 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if ( !formEl ) return;
   formEl.validate(async valid => {
     if ( valid ) {
-      const res = await setPwdAPI(ruleForm.pass)
-      console.log(res)
+      const res = await setPwdAPI(ruleForm.pass);
+      console.log(res);
       // 修改成功
       if ( res.data.status === 0 ) {
         active.value = 3;
         setTimeout(async () => {
-          delToken()
-          await router.replace('/login')
-          window.location.reload()
-        }, 500)
+          delToken();
+          await router.replace('/login');
+          window.location.reload();
+        }, 500);
       }
     } else {
       console.log("error submit!");

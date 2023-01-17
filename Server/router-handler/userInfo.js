@@ -45,8 +45,8 @@ exports.comparePwd = (req, res) => {
   });
 };
 
-// 更新密码
-exports.setpwd = (req, res) => {
+// 修改密码
+exports.setPwd = (req, res) => {
   const userInfo = req.body;
   // 定义根据 id 查询用户数据的 SQL 语句
   const sql = `select * from user_table where user_id=?`;
@@ -65,6 +65,20 @@ exports.setpwd = (req, res) => {
         status: 0,
         message: "更新密码成功",
       });
+    });
+  });
+};
+
+// 修改昵称
+exports.setNickname = (req, res) => {
+  const nickname = req.body.nickname;
+  const sqlStr = "update user_table set user_nickname = ? where user_id = ?";
+  db.query(sqlStr, [nickname, req.user.user_id], (err, result) => {
+    if (err) return res.cc(err);
+    if (result.affectedRows !== 1) return res.cc("修改昵称失败");
+    res.send({
+      status: 0,
+      message: "修改昵称成功"
     });
   });
 };

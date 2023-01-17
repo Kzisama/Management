@@ -48,7 +48,7 @@ const exit = () => {
   position: relative;
   width: 100%;
   height: 100%;
-  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  //box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
   background-color: #fff;
 
   .user {
@@ -61,6 +61,7 @@ const exit = () => {
 
     .welcome {
       margin-right: 20px;
+      line-height: 20px;
     }
 
     .icon {

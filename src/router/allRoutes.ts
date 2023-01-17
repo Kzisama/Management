@@ -15,7 +15,7 @@ const allRoutes: Array<RouteRecordRaw> = [
           title: '首页',
           icon: 'dashboard',
           roles: [0, 1, 2],
-        }
+        },
       },
       // 商品模块
       {
