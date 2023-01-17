@@ -1,9 +1,11 @@
 <template>
-  <div class="box">
-    <Transition name="my-transition">
-      <slot></slot>
-    </Transition>
-  </div>
+  <el-scrollbar noresize>
+    <div class="box">
+      <Transition name="my-transition" mode="out-in">
+        <slot></slot>
+      </Transition>
+    </div>
+  </el-scrollbar>
 
 </template>
 
@@ -18,15 +20,14 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  overflow: hidden;
 }
 
 .my-transition-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 .my-transition-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .my-transition-enter-from,

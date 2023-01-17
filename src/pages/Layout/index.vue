@@ -45,9 +45,11 @@
         <Header></Header>
       </header>
       <article>
-        <MyTransition>
-          <router-view></router-view>
-        </MyTransition>
+        <router-view v-slot="{Component}">
+          <MyTransition>
+            <component :is="Component"></component>
+          </MyTransition>
+        </router-view>
       </article>
     </main>
   </div>
