@@ -1,0 +1,79 @@
+{
+  "id": "3867703",
+  "name": "wether",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "17719961",
+      "name": "阴天",
+      "font_class": "yintian",
+      "unicode": "e6bd",
+      "unicode_decimal": 59069
+    },
+    {
+      "icon_id": "17719930",
+      "name": "冰雹",
+      "font_class": "bingbao",
+      "unicode": "e6b4",
+      "unicode_decimal": 59060
+    },
+    {
+      "icon_id": "17719931",
+      "name": "大风有雾",
+      "font_class": "dafengyouwu",
+      "unicode": "e6b5",
+      "unicode_decimal": 59061
+    },
+    {
+      "icon_id": "17719935",
+      "name": "多云有雾",
+      "font_class": "duoyunyouwu",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
+      "icon_id": "17719941",
+      "name": "太阳",
+      "font_class": "taiyang",
+      "unicode": "e6b7",
+      "unicode_decimal": 59063
+    },
+    {
+      "icon_id": "17719946",
+      "name": "雷阵雨3",
+      "font_class": "leizhenyu3",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "17719949",
+      "name": "双闪电",
+      "font_class": "shuangshandian",
+      "unicode": "e6b9",
+      "unicode_decimal": 59065
+    },
+    {
+      "icon_id": "17719951",
+      "name": "大学",
+      "font_class": "daxue",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
+      "icon_id": "17719952",
+      "name": "小雨",
+      "font_class": "xiaoyu",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
+    },
+    {
+      "icon_id": "17719954",
+      "name": "有雾",
+      "font_class": "youwu",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    }
+  ]
+}

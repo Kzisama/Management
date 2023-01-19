@@ -52,6 +52,7 @@
     </div>
     <div class="right">
       <Date></Date>
+      <Weather></Weather>
     </div>
   </div>
 </template>
@@ -64,6 +65,7 @@ import useStore from "@/store";
 import { User } from "@/store/user";
 import { getUserInfoAPI, setNickNameAPI } from "@/api";
 import QuickEntrance from "@/components/QuickEntrance/index.vue";
+import Weather from "@/components/Weather/index.vue";
 import Date from "@/components/Date/index.vue";
 
 // 用户信息展示
@@ -128,12 +130,16 @@ const setnameFn = async () => {
 <style scoped lang="less">
 .person {
   display: flex;
+  justify-content: space-between;
   padding: 10px;
   width: 100%;
+  min-width: 890px;
   height: 100%;
   overflow: auto;
 
   .left {
+    margin-right: 10px;
+
     .panel {
       display: flex;
       padding: 15px;
@@ -169,8 +175,6 @@ const setnameFn = async () => {
     }
   }
 
-  .right {
-    flex: 1;
-  }
+
 }
 </style>

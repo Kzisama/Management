@@ -23,12 +23,13 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
-import { ElMessage } from 'element-plus';
+import { ElMessage } from "element-plus";
 import { getUserInfoAPI, loginAPI } from "@/api";
 import { setToken } from "@/unitls/token";
 import router from "@/router";
 import { RouterLink } from "vue-router";
 import useStore from "@/store";
+import axios from "axios";
 
 // 表单数据
 const LoginForm = reactive({
@@ -48,8 +49,11 @@ const onSubmit = async () => {
     setToken(res.data.token);
     // 保存用户信息
     const infoRes = await getUserInfoAPI();
-    const { userStore } = useStore();
+    const { userStore, weatherStore } = useStore();
     userStore.setUserInfo(infoRes.data.data);
+    // 保存天气情况(易客云API，appid：用户id，appsecret：密钥)
+    const weatherInfo = await axios.get("https://v0.yiketianqi.com/api?unescape=1&version=v61&appid=88151753&appsecret=D1weNlxG");
+    weatherStore.setWeather(weatherInfo.data);
     // 跳转首页
     await router.push("/");
   } else {

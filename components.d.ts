@@ -38,5 +38,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    Weather: typeof import('./src/components/Weather/index.vue')['default']
+    WeatherIcon: typeof import('./src/components/WeatherIcon/index.vue')['default']
   }
 }
