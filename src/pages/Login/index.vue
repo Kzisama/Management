@@ -23,7 +23,6 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
-import { ElMessage } from "element-plus";
 import { getUserInfoAPI, loginAPI } from "@/api";
 import { setToken } from "@/unitls/token";
 import router from "@/router";

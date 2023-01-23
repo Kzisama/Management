@@ -22,7 +22,7 @@
         </el-table-column>
         <el-table-column prop="product_type" label="商品类别" width="150">
           <template #default="scope">
-            <el-tag type="success">
+            <el-tag>
               {{ scope.row.product_type }}
             </el-tag>
           </template>
@@ -52,8 +52,8 @@ type Goods = {
 }
 const goodsType = ref<string>("全部"); // 商品分类类别
 const typeOptions = ref<string[]>(["全部", "食品", "服饰", "文体用具", "日用百货"]);
-const tableData = ref<Goods[]>([]); // 表格展示的数据
 const goods = ref<Goods[]>([]); // 所有商品数据
+const tableData = ref<Goods[]>([]); // 表格展示的数据
 const goodsNum = ref<number>(0); // 总条目数
 const pageNo = ref<number>(1); // 当前页数
 const pageSize = ref<number>(6); // 每一页展示项的个数
@@ -66,8 +66,9 @@ onMounted(() => {
 
 // 商品分类筛选
 const filterGoods = (val: string) => {
-  // TODO：根据选择值筛选对应的商品
-  console.log(val);
+  goods.value = GoodsData.data.filter(item => item.product_type === val);
+  goodsNum.value = goods.value.length;
+  tableData.value = goods.value.slice(0, pageSize.value);
 };
 
 // 切换页码时触发
