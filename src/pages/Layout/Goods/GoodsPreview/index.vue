@@ -1,7 +1,7 @@
 <template>
   <el-container class="goods-contain">
     <el-main>
-      <!--   筛选商品   -->
+      <!--   筛选商品--根据种类   -->
       <div class="selectors">
         <el-select v-model="goodsType" class="select" placeholder="商品分类" size="small" @change="filterGoods">
           <el-option
@@ -12,22 +12,28 @@
           />
         </el-select>
       </div>
-      <el-table :data="tableData" border class="table">
-        <el-table-column prop="product_num" label="商品编号" width="150" />
-        <el-table-column prop="product_name" label="商品名称" width="150" />
-        <el-table-column prop="product_pic" label="商品图片" width="150">
+      <!--   筛选商品--根据编号   -->
+      <el-table :data="tableData" border class="table" table-layout="auto">
+        <el-table-column prop="product_num" label="商品编号" />
+        <el-table-column prop="product_name" label="商品名称" />
+        <el-table-column prop="product_pic" label="商品图片">
           <template #default="scope">
             <el-image style="width: 60px; height: 60px" :src="scope.row.product_pic" fit="cover" />
           </template>
         </el-table-column>
-        <el-table-column prop="product_type" label="商品类别" width="150">
+        <el-table-column prop="product_type" label="商品类别">
           <template #default="scope">
             <el-tag>
               {{ scope.row.product_type }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="product_sale" label="在售数量" width="150" />
+        <el-table-column prop="product_sale" label="在售数量" />
+        <el-table-column prop="product_price" label="商品价格">
+          <template #default="scope">
+            <span style="color: red">￥{{ scope.row.product_price }}</span>
+          </template>
+        </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next" small
                      :total="goodsNum"
@@ -49,6 +55,7 @@ type Goods = {
   product_pic: string;
   product_type: string;
   product_sale: number;
+  product_price: number
 }
 const goodsType = ref<string>("全部"); // 商品分类类别
 const typeOptions = ref<string[]>(["全部", "食品", "服饰", "文体用具", "日用百货"]);
@@ -66,7 +73,7 @@ onMounted(() => {
 
 // 商品分类筛选
 const filterGoods = (val: string) => {
-  goods.value = GoodsData.data.filter(item => item.product_type === val);
+  val === "全部" ? goods.value = GoodsData.data : goods.value = GoodsData.data.filter(item => item.product_type === val);
   goodsNum.value = goods.value.length;
   tableData.value = goods.value.slice(0, pageSize.value);
 };
@@ -87,19 +94,9 @@ const renderFn = (val: number) => {
   .el-main {
     padding: 5px;
 
-    .selectors {
-      display: flex;
-      margin: 0 auto;
-      width: 750px;
-
-      .select {
-        width: 125px;
-      }
-    }
-
     .table {
       margin: 5px auto;
-      width: 750px;
+      width: 100%;
     }
 
     .el-pagination {
