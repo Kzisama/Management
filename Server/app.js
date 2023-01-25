@@ -39,6 +39,10 @@ app.use("/api", userRouter);
 const userInfoRouter = require("./router/userInfo");
 app.use("/my", userInfoRouter);
 
+// 路由--商品模块
+const goodsRouter = require("./router/goods");
+app.use("/goods", goodsRouter);
+
 // 全局错误级别中间件
 const joi = require("joi");
 app.use((err, req, res, next) => {
@@ -47,7 +51,8 @@ app.use((err, req, res, next) => {
   // 捕获身份认证失败的错误
   if (err.name === "UnauthorizedError") return res.cc("身份认证失败");
   // 其他错误
-  res.cc(err);
+  if (err) return res.cc(err);
+  next();
 });
 
 app.listen(3007, () => {

@@ -28,7 +28,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="product_sale" label="在售数量" />
+        <el-table-column prop="product_inv" label="商品库存" />
         <el-table-column prop="product_price" label="商品价格">
           <template #default="scope">
             <span style="color: red">￥{{ scope.row.product_price }}</span>
@@ -54,7 +54,7 @@ type Goods = {
   product_name: string;
   product_pic: string;
   product_type: string;
-  product_sale: number;
+  product_inv: number;
   product_price: number
 }
 const goodsType = ref<string>("全部"); // 商品分类类别

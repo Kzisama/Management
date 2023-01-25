@@ -63,3 +63,13 @@ export const setNickNameAPI = (nickname: string) => request({
   }
 });
 
+// 商品-----添加商品
+export const addGoodsAPI = (goods: FormData) => request({
+  url: "/goods/add",
+  method: "POST",
+  data: goods,
+  headers: {
+    "Content-Type": "multipart/form-data"
+  }
+});
+

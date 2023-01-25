@@ -1,5 +1,5 @@
 <template>
-  <h1>商品结算</h1>
+  <div class="settlement"></div>
 </template>
 
 <script setup lang="ts"></script>

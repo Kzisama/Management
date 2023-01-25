@@ -10,7 +10,7 @@ const permissionRoutes = (routes: RouteRecordRaw[]) => {
   // 筛选过后的路由
   const realRoutes: RouteRecordRaw[] = [];
   routes.forEach(item => {
-    // chilren
+    // children
     const chArr: RouteRecordRaw[] = [];
     // 获取到对应权限的路由
     if (item.meta && item.meta.roles) {

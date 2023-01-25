@@ -1,5 +1,5 @@
 <template>
-  <h1>库存总览</h1>
+  <h1>库存管理</h1>
 </template>
 
 <script setup lang="ts"></script>
