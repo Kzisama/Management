@@ -6,15 +6,29 @@ const expressJoi = require("@escook/express-joi");
 const { goods_schema } = require("../schema/goods");
 // 解析表单数据 form-data
 const multer = require("multer");
-// 创建 multer 的实例对象，通过 dest 属性指定文件的存放路径
-const upload = multer({ dest: path.join(__dirname, "../uploads") });
+
+// 上传图片
+const storage = multer.diskStorage({
+  //存储的位置 uploads在根目录下
+  destination(req, file, cb) {
+    cb(null, "public/uploads/");
+  },
+  //图片名字的确定 multer默认帮我们取一个没有扩展名的图片名，因此需要我们自己定义给图片命名
+  filename(req, file, cb) {
+    cb(null, "img" + file.originalname);
+  }
+});
+// 创建一个multer实例
+const upload = multer({ storage });
 
 // 路由处理函数
-const { addGoods } = require("../router-handler/goods");
+const { addGoods, getGoods } = require("../router-handler/goods");
 
 // upload.single() 是一个局部生效的中间件，用来解析 FormData 格式的表单数据
 // 将文件类型的数据，解析并挂载到 req.file 属性中
 // 将文本类型的数据，解析并挂载到 req.body 属性中
 router.post("/add", upload.single("product_pic"), expressJoi(goods_schema), addGoods);
+
+router.get("/get", getGoods);
 
 module.exports = router;

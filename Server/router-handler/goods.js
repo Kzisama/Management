@@ -1,6 +1,7 @@
 const db = require("../db");
 const path = require("path");
 
+// 添加商品
 exports.addGoods = (req, res) => {
   const goodsInfo = {
     ...req.body,
@@ -18,6 +19,19 @@ exports.addGoods = (req, res) => {
         status: 0,
         message: "添加商品成功"
       });
+    });
+  });
+};
+
+// 获取全部商品
+exports.getGoods = (req, res) => {
+  const sqlStr = "select product_num,product_name,product_pic,product_type,product_inv,product_price from product_table";
+  db.query(sqlStr, (err, result) => {
+    if (err) return res.cc(err);
+    res.send({
+      status: 0,
+      data: result,
+      message: "获取商品信息成功"
     });
   });
 };

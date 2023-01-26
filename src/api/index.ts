@@ -73,3 +73,8 @@ export const addGoodsAPI = (goods: FormData) => request({
   }
 });
 
+// 商品-----获取全部商品信息
+export const getGoodsAPI = () => request({
+  url: "/goods/get",
+  method: "GET"
+});

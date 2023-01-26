@@ -8,17 +8,16 @@
               v-for="(item,index) in typeOptions"
               :key="index"
               :label="item"
-              :value="item"
-          />
+              :value="item" />
         </el-select>
       </div>
-      <!--   筛选商品--根据编号   -->
       <el-table :data="tableData" border class="table" table-layout="auto">
         <el-table-column prop="product_num" label="商品编号" />
         <el-table-column prop="product_name" label="商品名称" />
         <el-table-column prop="product_pic" label="商品图片">
           <template #default="scope">
-            <el-image style="width: 60px; height: 60px" :src="scope.row.product_pic" fit="cover" />
+            <el-image style="width: 60px; height: 60px" :src="`http://127.0.0.1:3007${scope.row.product_pic}`"
+                      fit="cover" />
           </template>
         </el-table-column>
         <el-table-column prop="product_type" label="商品类别">
@@ -47,7 +46,8 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import GoodsData from "@/MockData/goodsList.json";
+import useStore from "@/store";
+import { getGoodsAPI } from "@/api";
 
 type Goods = {
   product_num: number;
@@ -57,23 +57,32 @@ type Goods = {
   product_inv: number;
   product_price: number
 }
+
 const goodsType = ref<string>("全部"); // 商品分类类别
-const typeOptions = ref<string[]>(["全部", "食品", "服饰", "文体用具", "日用百货"]);
+const typeOptions = ref<string[]>(["全部", "日用百货", "食品", "文体用具", "服饰", "厨房用具"]);
 const goods = ref<Goods[]>([]); // 所有商品数据
 const tableData = ref<Goods[]>([]); // 表格展示的数据
 const goodsNum = ref<number>(0); // 总条目数
 const pageNo = ref<number>(1); // 当前页数
 const pageSize = ref<number>(6); // 每一页展示项的个数
 
-onMounted(() => {
-  goods.value = GoodsData.data;
+const { goodsStore } = useStore();
+onMounted(async () => {
+  const res = await getGoodsAPI();
+  goodsStore.setGoodsInfo([...res.data.data, ...res.data.data, ...res.data.data, ...res.data.data]);
+  goods.value = goodsStore.goodsInfo;
   goodsNum.value = goods.value.length;
   tableData.value = goods.value.slice(0, pageSize.value);
 });
 
 // 商品分类筛选
 const filterGoods = (val: string) => {
-  val === "全部" ? goods.value = GoodsData.data : goods.value = GoodsData.data.filter(item => item.product_type === val);
+  // if ( val !== "全部" ) {
+  //   tableData.value = goods.value.filter(item => item.product_type === val);
+  // } else {
+  //   tableData.value = goods.value;
+  // }
+  goods.value = goodsStore.filterGoods(val);
   goodsNum.value = goods.value.length;
   tableData.value = goods.value.slice(0, pageSize.value);
 };

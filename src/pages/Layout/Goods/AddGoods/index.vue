@@ -1,7 +1,6 @@
 <template>
   <div class="form">
     <el-form
-        :inline="true"
         ref="addGoodsFormRef"
         :model="addGoodsForm"
         :rules="rules"
@@ -19,7 +18,7 @@
         <el-input-number v-model="addGoodsForm.product_price" />
       </el-form-item>
       <el-form-item label="商品类别" prop="product_type">
-        <el-select v-model="addGoodsForm.product_type">
+        <el-select v-model="addGoodsForm.product_type" placement="right-end">
           <el-option
               v-for="type in goodsTypes"
               :key="type"
@@ -129,8 +128,21 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 <style lang="less" scoped>
 .form {
+  padding: 20px;
+  width: 500px;
   .el-form {
+    .pic {
+      display: flex;
+      flex-direction: column;
+    }
     .el-form-item {
+      // 去掉必选项前面的小红点
+      :deep(.el-form-item__label) {
+        &::before {
+          display: none;
+        }
+      }
+
       .el-image {
         width: 150px;
         height: 150px;
