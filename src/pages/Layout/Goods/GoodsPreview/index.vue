@@ -17,7 +17,7 @@
         <el-table-column prop="product_pic" label="商品图片">
           <template #default="scope">
             <el-image style="width: 60px; height: 60px" :src="`http://127.0.0.1:3007${scope.row.product_pic}`"
-                      fit="cover" />
+                      fit="cover"  />
           </template>
         </el-table-column>
         <el-table-column prop="product_type" label="商品类别">
@@ -77,11 +77,6 @@ onMounted(async () => {
 
 // 商品分类筛选
 const filterGoods = (val: string) => {
-  // if ( val !== "全部" ) {
-  //   tableData.value = goods.value.filter(item => item.product_type === val);
-  // } else {
-  //   tableData.value = goods.value;
-  // }
   goods.value = goodsStore.filterGoods(val);
   goodsNum.value = goods.value.length;
   tableData.value = goods.value.slice(0, pageSize.value);
