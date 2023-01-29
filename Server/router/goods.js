@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const path = require("path");
 // 验证表单数据中间件
 const expressJoi = require("@escook/express-joi");
 const { goods_schema } = require("../schema/goods");
@@ -22,7 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // 路由处理函数
-const { addGoods, getGoods } = require("../router-handler/goods");
+const { addGoods, getGoods, saleGoods } = require("../router-handler/goods");
 
 // upload.single() 是一个局部生效的中间件，用来解析 FormData 格式的表单数据
 // 将文件类型的数据，解析并挂载到 req.file 属性中
@@ -30,5 +29,7 @@ const { addGoods, getGoods } = require("../router-handler/goods");
 router.post("/add", upload.single("product_pic"), expressJoi(goods_schema), addGoods);
 
 router.get("/get", getGoods);
+
+router.post("/sale", saleGoods);
 
 module.exports = router;

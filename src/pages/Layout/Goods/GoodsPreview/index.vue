@@ -17,7 +17,7 @@
         <el-table-column prop="product_pic" label="商品图片">
           <template #default="scope">
             <el-image style="width: 60px; height: 60px" :src="`http://127.0.0.1:3007${scope.row.product_pic}`"
-                      fit="cover"  />
+                      fit="cover" />
           </template>
         </el-table-column>
         <el-table-column prop="product_type" label="商品类别">
@@ -69,7 +69,7 @@ const pageSize = ref<number>(6); // 每一页展示项的个数
 const { goodsStore } = useStore();
 onMounted(async () => {
   const res = await getGoodsAPI();
-  goodsStore.setGoodsInfo([...res.data.data, ...res.data.data, ...res.data.data, ...res.data.data]);
+  goodsStore.setGoodsInfo(res.data.data );
   goods.value = goodsStore.goodsInfo;
   goodsNum.value = goods.value.length;
   tableData.value = goods.value.slice(0, pageSize.value);

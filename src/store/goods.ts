@@ -17,6 +17,7 @@ const useGoodsStore = defineStore("Goods", {
     };
   },
   getters: {
+    // 根据种类筛选
     filterGoods: (state) => {
       return (type: string) => {
         if ( type === "全部" ) {
@@ -24,6 +25,12 @@ const useGoodsStore = defineStore("Goods", {
         } else {
           return state.goodsInfo.filter(item => item.product_type === type);
         }
+      };
+    },
+    // 根据商品编号获取商品信息
+    singleGoodsInfo: (state) => {
+      return (num: number) => {
+        return state.goodsInfo.find(item => item.product_num === num);
       };
     }
   },

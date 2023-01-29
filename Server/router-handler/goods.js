@@ -35,3 +35,61 @@ exports.getGoods = (req, res) => {
     });
   });
 };
+
+// 销售商品
+exports.saleGoods = (req, res) => {
+  req.body = [
+    {
+      "product_num": 100001,
+      "product_name": "罗曼电动牙刷",
+      "product_price": 319.12,
+      "product_quantity": 2,
+      "product_total": 638.24
+    },
+    {
+      "product_num": 200001,
+      "product_name": "乐事无限罐装薯片翡翠黄瓜味104g",
+      "product_price": 10,
+      "product_quantity": 1,
+      "product_total": 10
+    },
+    {
+      "product_num": 300001,
+      "product_name": "全碳素纤维单双羽毛球拍",
+      "product_price": 99,
+      "product_quantity": 1,
+      "product_total": 99
+    },
+    {
+      "product_num": 500001,
+      "product_name": "硅胶铲不粘锅专用锅",
+      "product_price": 7,
+      "product_quantity": 1,
+      "product_total": 7
+    },
+    {
+      "product_num": 400001,
+      "product_name": "BEASTER小恶魔鬼脸防风仿羊羔毛棉衣",
+      "product_price": 399,
+      "product_quantity": 1,
+      "product_total": 399
+    },
+    {
+      "product_num": 100002,
+      "product_name": "清风抽纸原木金装120抽8包",
+      "product_price": 30,
+      "product_quantity": 1,
+      "product_total": 30
+    }
+  ];
+  const sqlStr = "select * from product_table where product_num = ?";
+  // TODO:怎么将所有信息同时处理并且捕获其中的错误
+  req.body.forEach(item => {
+    db.query(sqlStr, item.product_num, (err, result) => {
+      if (err) return res.cc(err);
+      if (result.length !== 1) return res.cc("查询错误");
+      console.log("查询成功", item.product_num);
+    });
+  });
+  // res.send({ status: 0, message: "查询成功" });
+};

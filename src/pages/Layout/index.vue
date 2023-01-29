@@ -3,17 +3,17 @@
     <!-- 侧边导航栏 -->
     <aside class="menu">
       <el-menu
-        active-text-color="#3F9FFF"
-        background-color="#304156"
-        class="el-menu-vertical-demo"
-        :default-active="route.path"
-        text-color="#fff"
-        router>
+          active-text-color="#3F9FFF"
+          background-color="#304156"
+          class="el-menu-vertical-demo"
+          :default-active="route.path"
+          text-color="#fff"
+          router>
         <!-- 没有二级菜单的路由 -->
         <el-menu-item
-          v-for="route in noChRoutes"
-          :key="route.path"
-          :index="`/${route.path}`">
+            v-for="route in noChRoutes"
+            :key="route.path"
+            :index="`/${route.path}`">
           <el-icon>
             <svg-icon :name="route.meta?.icon"></svg-icon>
           </el-icon>
@@ -21,9 +21,9 @@
         </el-menu-item>
         <!-- 有二级菜单的路由 -->
         <el-sub-menu
-          :index="`/${route.path}`"
-          v-for="route in chRoutes"
-          :key="route.path">
+            :index="`/${route.path}`"
+            v-for="route in chRoutes"
+            :key="route.path">
           <template #title>
             <el-icon>
               <svg-icon :name="route.meta?.icon"></svg-icon>
@@ -32,8 +32,8 @@
           </template>
           <el-menu-item-group v-for="child in route.children" :key="child.path">
             <el-menu-item
-              :index="`/${route.path}/${child.path}`"
-              style="background-color: #1f2d3d">
+                :index="`/${route.path}/${child.path}`"
+                style="background-color: #1f2d3d">
               {{ child.meta?.title }}
             </el-menu-item>
           </el-menu-item-group>
@@ -47,7 +47,9 @@
       <article>
         <router-view v-slot="{ Component }">
           <MyTransition>
-            <component :is="Component"></component>
+            <div style="width: 100%; height: 100%">
+              <component :is="Component"></component>
+            </div>
           </MyTransition>
         </router-view>
       </article>
@@ -75,11 +77,11 @@ const route = useRoute();
 const renderRoutes = allRouter[0].children;
 // 带有二级菜单的路由
 const chRoutes = permissionRoutes(
-  renderRoutes?.filter(item => item.children) as RouteRecordRaw[],
+    renderRoutes?.filter(item => item.children) as RouteRecordRaw[],
 );
 // 没有二级菜单的路由
 const noChRoutes = permissionRoutes(
-  renderRoutes?.filter(item => !item.children) as RouteRecordRaw[],
+    renderRoutes?.filter(item => !item.children) as RouteRecordRaw[],
 );
 </script>
 
