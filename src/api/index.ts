@@ -78,3 +78,17 @@ export const getGoodsAPI = () => request({
   url: "/goods/get",
   method: "GET"
 });
+
+type GoodsSettlement = {
+  product_num: number;
+  product_name: string;
+  product_price: number;
+  product_quantity: number;
+  product_total: number
+}
+// 商品-----商品结算
+export const settleAPI = (arr: GoodsSettlement[]) => request({
+  url: "/goods/sale",
+  method: "POST",
+  data: arr
+});

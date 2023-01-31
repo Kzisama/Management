@@ -60,15 +60,19 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useRoute, RouteRecordRaw } from "vue-router";
-import { getUserInfoAPI } from "@/api";
+import { getGoodsAPI, getUserInfoAPI } from "@/api";
 import allRouter from "@/router/allRoutes";
 import permissionRoutes from "@/router/permission";
 import Header from "@/components/Header/index.vue";
 import MyTransition from "@/components/MyTransition/index.vue";
+import useStore from "@/store";
 
+const { goodsStore } = useStore();
 onMounted(async () => {
   const res = await getUserInfoAPI();
   console.log(res);
+  const goodsRes = await getGoodsAPI();
+  goodsStore.setGoodsInfo(goodsRes.data.data );
 });
 
 // 获取当前路由，便于侧边栏根据路由初始选定

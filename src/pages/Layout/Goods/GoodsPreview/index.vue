@@ -47,7 +47,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import useStore from "@/store";
-import { getGoodsAPI } from "@/api";
 
 type Goods = {
   product_num: number;
@@ -68,8 +67,6 @@ const pageSize = ref<number>(6); // 每一页展示项的个数
 
 const { goodsStore } = useStore();
 onMounted(async () => {
-  const res = await getGoodsAPI();
-  goodsStore.setGoodsInfo(res.data.data );
   goods.value = goodsStore.goodsInfo;
   goodsNum.value = goods.value.length;
   tableData.value = goods.value.slice(0, pageSize.value);

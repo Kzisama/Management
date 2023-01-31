@@ -46,6 +46,7 @@ export default {
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import useStore from "@/store";
+import { settleAPI } from "@/api";
 
 type GoodsSettlement = {
   product_num: number;
@@ -99,14 +100,20 @@ const goodsTotal = computed(() => {
 });
 
 // 商品结算
-const settle = () => {
+const settle = async () => {
   if ( goodsList.value.length === 0 ) {
     ElMessage.error("没有商品需要结算");
     return;
   }
   // 成功结算
-  console.log(goodsList.value);
-  goodsList.value = [];
+  const res = await settleAPI(goodsList.value);
+  if ( res.data.status === 0 ) {
+    ElMessage({
+      type: "success",
+      message: "结算成功"
+    });
+    goodsList.value = [];
+  }
 };
 </script>
 

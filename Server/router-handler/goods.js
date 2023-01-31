@@ -43,7 +43,7 @@ exports.saleGoods = (req, res) => {
       "product_num": 100001,
       "product_name": "罗曼电动牙刷",
       "product_price": 319.12,
-      "product_quantity": 2,
+      "product_quantity": 1,
       "product_total": 638.24
     },
     {
@@ -82,14 +82,20 @@ exports.saleGoods = (req, res) => {
       "product_total": 30
     }
   ];
-  const sqlStr = "select * from product_table where product_num = ?";
-  // TODO:怎么将所有信息同时处理并且捕获其中的错误
-  req.body.forEach(item => {
-    db.query(sqlStr, item.product_num, (err, result) => {
-      if (err) return res.cc(err);
-      if (result.length !== 1) return res.cc("查询错误");
-      console.log("查询成功", item.product_num);
+  const sqlStr = "update product_table set product_inv = product_inv - ? where product_num = ?";
+  try {
+    req.body.forEach(item => {
+      db.query(sqlStr, [item.product_quantity, item.product_num], (err, result) => {
+        if (err) {
+          throw " 出现错误 ";
+        }
+        if (result.affectedRows !== 1) {
+          throw " 商品结算失败 ";
+        }
+      });
     });
-  });
-  // res.send({ status: 0, message: "查询成功" });
+    res.send({ status: 0, message: "结算成功" });
+  } catch (error) {
+    res.cc("结算失败");
+  }
 };
