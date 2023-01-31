@@ -1,5 +1,6 @@
 const db = require("../db");
 const path = require("path");
+const moment = require("moment");
 
 // 添加商品
 exports.addGoods = (req, res) => {
@@ -36,52 +37,8 @@ exports.getGoods = (req, res) => {
   });
 };
 
-// 销售商品
+// 销售商品 并且 生成订单信息
 exports.saleGoods = (req, res) => {
-  req.body = [
-    {
-      "product_num": 100001,
-      "product_name": "罗曼电动牙刷",
-      "product_price": 319.12,
-      "product_quantity": 1,
-      "product_total": 638.24
-    },
-    {
-      "product_num": 200001,
-      "product_name": "乐事无限罐装薯片翡翠黄瓜味104g",
-      "product_price": 10,
-      "product_quantity": 1,
-      "product_total": 10
-    },
-    {
-      "product_num": 300001,
-      "product_name": "全碳素纤维单双羽毛球拍",
-      "product_price": 99,
-      "product_quantity": 1,
-      "product_total": 99
-    },
-    {
-      "product_num": 500001,
-      "product_name": "硅胶铲不粘锅专用锅",
-      "product_price": 7,
-      "product_quantity": 1,
-      "product_total": 7
-    },
-    {
-      "product_num": 400001,
-      "product_name": "BEASTER小恶魔鬼脸防风仿羊羔毛棉衣",
-      "product_price": 399,
-      "product_quantity": 1,
-      "product_total": 399
-    },
-    {
-      "product_num": 100002,
-      "product_name": "清风抽纸原木金装120抽8包",
-      "product_price": 30,
-      "product_quantity": 1,
-      "product_total": 30
-    }
-  ];
   const sqlStr = "update product_table set product_inv = product_inv - ? where product_num = ?";
   try {
     req.body.forEach(item => {
@@ -94,8 +51,25 @@ exports.saleGoods = (req, res) => {
         }
       });
     });
+    // 结算成功，记录订单信息
+    const orderInfo = {
+      order_num: (+new Date() + "").slice(-12), // 订单编号
+      order_drawer: req.user.user_name, // 订单负责人
+      order_date: moment().format("YYYY-MM-DD HH:mm:ss"), // 订单创建时间
+      order_info: JSON.stringify(req.body), // 订单信息
+    };
+    const sql = "insert into order_table set ?";
+    db.query(sql, orderInfo, (err, result) => {
+      if (err) return res.cc(err);
+      if (result.affectedRows !== 1) return res.cc("订单创建失败");
+    });
     res.send({ status: 0, message: "结算成功" });
   } catch (error) {
     res.cc("结算失败");
   }
+};
+
+// 获取当日销售情况
+exports.todaySale = (req, res) => {
+  res.send("ok");
 };

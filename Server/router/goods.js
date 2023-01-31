@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // 路由处理函数
-const { addGoods, getGoods, saleGoods } = require("../router-handler/goods");
+const { addGoods, getGoods, saleGoods, todaySale } = require("../router-handler/goods");
 
 // upload.single() 是一个局部生效的中间件，用来解析 FormData 格式的表单数据
 // 将文件类型的数据，解析并挂载到 req.file 属性中
@@ -31,5 +31,7 @@ router.post("/add", upload.single("product_pic"), expressJoi(goods_schema), addG
 router.get("/get", getGoods);
 
 router.post("/sale", saleGoods);
+
+router.get("/today", todaySale);
 
 module.exports = router;
