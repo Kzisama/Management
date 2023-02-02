@@ -51,15 +51,6 @@ const allRoutes: Array<RouteRecordRaw> = [
             },
           },
           {
-            path: "sale",
-            name: "Sale",
-            component: () => import("@/pages/Layout/Goods/TodaySale/index.vue"),
-            meta: {
-              title: "今日售卖",
-              roles: [0],
-            },
-          },
-          {
             path: "add",
             name: "Add",
             component: () => import("@/pages/Layout/Goods/AddGoods/index.vue"),

@@ -54,6 +54,10 @@ const onSubmit = async () => {
     const weatherInfo = await axios.get("https://v0.yiketianqi.com/api?unescape=1&version=v61&appid=88151753&appsecret=D1weNlxG");
     weatherStore.setWeather(weatherInfo.data);
     // 跳转首页
+    ElMessage({
+      type: "success",
+      message: "登录成功"
+    });
     await router.push("/");
   } else {
     console.log("error submit");

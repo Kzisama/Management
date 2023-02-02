@@ -7,7 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ComBar: typeof import('./src/components/Echarts/ComBar/index.vue')['default']
+    ComLine: typeof import('./src/components/Echarts/ComLine/index.vue')['default']
+    ComPie: typeof import('./src/components/Echarts/ComPie/index.vue')['default']
     Date: typeof import('./src/components/Date/index.vue')['default']
+    Echarts: typeof import('./src/components/Echarts/ComPie/index.vue')['default']
+    EchartsPie: typeof import('./src/components/EchartsPie/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']

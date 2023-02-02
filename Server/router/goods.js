@@ -28,10 +28,13 @@ const { addGoods, getGoods, saleGoods, todaySale } = require("../router-handler/
 // 将文本类型的数据，解析并挂载到 req.body 属性中
 router.post("/add", upload.single("product_pic"), expressJoi(goods_schema), addGoods);
 
+// 商品----获取全部商品
 router.get("/get", getGoods);
 
+// 商品----售卖商品
 router.post("/sale", saleGoods);
 
+// 商品----获取今日售卖(售货员个人)
 router.get("/today", todaySale);
 
 module.exports = router;

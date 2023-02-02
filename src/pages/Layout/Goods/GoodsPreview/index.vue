@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {  ref } from "vue";
 import useStore from "@/store";
 
 type Goods = {
@@ -66,11 +66,10 @@ const pageNo = ref<number>(1); // 当前页数
 const pageSize = ref<number>(6); // 每一页展示项的个数
 
 const { goodsStore } = useStore();
-onMounted(async () => {
-  goods.value = goodsStore.goodsInfo;
-  goodsNum.value = goods.value.length;
-  tableData.value = goods.value.slice(0, pageSize.value);
-});
+goods.value = goodsStore.goodsInfo;
+console.log(goods.value);
+goodsNum.value = goods.value.length;
+tableData.value = goods.value.slice(0, pageSize.value);
 
 // 商品分类筛选
 const filterGoods = (val: string) => {

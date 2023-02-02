@@ -92,3 +92,9 @@ export const settleAPI = (arr: GoodsSettlement[]) => request({
   method: "POST",
   data: arr
 });
+
+// 商品-----获取销售员个人的今日数据
+export const getTodaySelfAPI = () => request({
+  url: "/goods/today",
+  method: "GET"
+});

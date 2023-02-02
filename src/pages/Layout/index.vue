@@ -44,7 +44,7 @@
       <header>
         <Header></Header>
       </header>
-      <article>
+      <article v-if="flag">
         <router-view v-slot="{ Component }">
           <MyTransition>
             <div style="width: 100%; height: 100%">
@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute, RouteRecordRaw } from "vue-router";
 import { getGoodsAPI, getUserInfoAPI } from "@/api";
 import allRouter from "@/router/allRoutes";
@@ -68,11 +68,13 @@ import MyTransition from "@/components/MyTransition/index.vue";
 import useStore from "@/store";
 
 const { goodsStore } = useStore();
+
+const flag = ref<boolean>(false);
 onMounted(async () => {
-  const res = await getUserInfoAPI();
-  console.log(res);
+  await getUserInfoAPI();
   const goodsRes = await getGoodsAPI();
-  goodsStore.setGoodsInfo(goodsRes.data.data );
+  goodsStore.setGoodsInfo(goodsRes.data.data);
+  flag.value = true;
 });
 
 // 获取当前路由，便于侧边栏根据路由初始选定
@@ -121,7 +123,7 @@ const noChRoutes = permissionRoutes(
     article {
       flex: 1;
       position: relative;
-      background-color: #ccc;
+      background-color: rgba(241, 242, 246);
     }
   }
 }

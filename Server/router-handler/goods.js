@@ -1,6 +1,5 @@
 const db = require("../db");
 const path = require("path");
-const moment = require("moment");
 
 // 添加商品
 exports.addGoods = (req, res) => {
@@ -55,7 +54,7 @@ exports.saleGoods = (req, res) => {
     const orderInfo = {
       order_num: (+new Date() + "").slice(-12), // 订单编号
       order_drawer: req.user.user_name, // 订单负责人
-      order_date: moment().format("YYYY-MM-DD HH:mm:ss"), // 订单创建时间
+      order_date: new Date(), // 订单创建时间
       order_info: JSON.stringify(req.body), // 订单信息
     };
     const sql = "insert into order_table set ?";
@@ -69,7 +68,12 @@ exports.saleGoods = (req, res) => {
   }
 };
 
-// 获取当日销售情况
+// 获取销售情况(销售员个人)
 exports.todaySale = (req, res) => {
-  res.send("ok");
+  const sqlStr = "select * from order_table where order_drawer = ?";
+  db.query(sqlStr, req.user.user_name, (err, result) => {
+    if (err) return res.cc(err);
+    if (result.length === 0) return res.cc("未查询到数据");
+    res.send({ status: 0, data: result });
+  });
 };
